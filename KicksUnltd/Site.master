@@ -1,0 +1,40 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="Site" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <div id="wrapper">
+            <div id="banner"></div>
+            <div id="navbar">
+                <ul id="navlist">
+                    <li><asp:HyperLink ID="HyperLink1" runat="server">Men's</asp:HyperLink></li>
+                    <li><asp:HyperLink ID="HyperLink2" runat="server">Women's</asp:HyperLink></li>
+                    <li><asp:HyperLink ID="HyperLink3" runat="server">Children's</asp:HyperLink></li>
+                    <li><asp:HyperLink ID="HyperLink4" runat="server">Clearance</asp:HyperLink></li>
+                </ul>
+            </div>
+            <div id="content">
+                <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+            <footer>
+                <ul>
+                    <li><asp:HyperLink ID="HyperLink5" runat="server">About Us</asp:HyperLink></li>
+                    <li><asp:HyperLink ID="HyperLink6" runat="server">Privacy Policy</asp:HyperLink></li>
+                    <li><asp:HyperLink ID="HyperLink7" runat="server">Social Media</asp:HyperLink></li>
+                    <li><asp:Label ID="Label1" runat="server" Text="Label">Copyright&copy;2015</asp:Label></li>
+                </ul>
+            </footer>
+        </div>
+    </div>
+    </form>
+</body>
+</html>
