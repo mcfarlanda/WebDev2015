@@ -1,0 +1,46 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="Site" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Kicks Unltd eStore</title>
+    <link rel="stylesheet" href="Styles/Stylesheet.css" type="text/css" />
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <div id="wrapper">
+            <div id="banner">
+                <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/sportsbanner.png" Width="100%" />
+            </div>
+            <div id="navbar">
+                <ul id="navlist">
+                    <li><asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/Pages/Men.aspx">Men's</asp:HyperLink></li>
+                    <li><asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/Pages/Women.aspx">Women's</asp:HyperLink></li>
+                    <li><asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="~/Pages/Children.aspx">Children's</asp:HyperLink></li>
+                    <li><asp:HyperLink ID="HyperLink5" runat="server">Clearance</asp:HyperLink></li>
+                    <li style="float:right;">
+                        <asp:HyperLink ID="cartQnt" runat="server" NavigateUrl="~/Pages/ShoppingCart.aspx">Shopping Cart</asp:HyperLink>
+                    </li>
+                </ul>
+            </div>
+            <div id="content">
+                <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+            <footer id="footbar">
+                <ul id="footlist">
+                    <li><asp:HyperLink ID="HyperLink6" runat="server" NavigateUrl="~/Pages/About.aspx">About Us</asp:HyperLink></li>
+                    <li><asp:HyperLink ID="HyperLink7" runat="server" NavigateUrl="~/Pages/Privacy.aspx">Privacy Policy</asp:HyperLink></li>
+                    <li><asp:HyperLink ID="HyperLink8" runat="server" NavigateUrl="~/Pages/Social.aspx">Social Media</asp:HyperLink></li>
+                    <li><asp:Label ID="Label1" runat="server" Text="Label">Copyright&copy;2015</asp:Label></li>
+                </ul>
+            </footer>
+        </div>
+    </div>
+    </form>
+</body>
+</html>
