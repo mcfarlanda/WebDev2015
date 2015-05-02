@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ShoeDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ShoeID" Type="int" />
+          <Property Name="Date Purchased" Type="datetime" />
+          <Property Name="IsInCart" Type="bit" Nullable="false" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Size" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Shoes">
+          <Key>
+            <PropertyRef Name="ShoeID" />
+          </Key>
+          <Property Name="ShoeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeID" Type="int" Nullable="false" />
+          <Property Name="WearerID" Type="int" Nullable="false" />
+          <Property Name="Brand" Type="varchar" MaxLength="50" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Image" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ShoeTypes">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Wearers">
+          <Key>
+            <PropertyRef Name="WearerID" />
+          </Key>
+          <Property Name="WearerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Cart_Shoes">
+          <End Role="Shoes" Type="Self.Shoes" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shoes">
+              <PropertyRef Name="ShoeID" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="ShoeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shoes_ShoeTypes">
+          <End Role="ShoeTypes" Type="Self.ShoeTypes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Shoes" Type="Self.Shoes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShoeTypes">
+              <PropertyRef Name="TypeID" />
+            </Principal>
+            <Dependent Role="Shoes">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shoes_Wearers">
+          <End Role="Wearers" Type="Self.Wearers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Shoes" Type="Self.Shoes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wearers">
+              <PropertyRef Name="WearerID" />
+            </Principal>
+            <Dependent Role="Shoes">
+              <PropertyRef Name="WearerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShoeDBModelStoreContainer">
+          <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shoes" EntityType="Self.Shoes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShoeTypes" EntityType="Self.ShoeTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Wearers" EntityType="Self.Wearers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Cart_Shoes" Association="Self.FK_Cart_Shoes">
+            <End Role="Shoes" EntitySet="Shoes" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shoes_ShoeTypes" Association="Self.FK_Shoes_ShoeTypes">
+            <End Role="ShoeTypes" EntitySet="ShoeTypes" />
+            <End Role="Shoes" EntitySet="Shoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shoes_Wearers" Association="Self.FK_Shoes_Wearers">
+            <End Role="Wearers" EntitySet="Wearers" />
+            <End Role="Shoes" EntitySet="Shoes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ShoeDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ShoeID" Type="Int32" />
+          <Property Name="Date_Purchased" Type="DateTime" Precision="3" />
+          <Property Name="IsInCart" Type="Boolean" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Size" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Sho" Relationship="Self.FK_Cart_Shoes" FromRole="Cart" ToRole="Shoes" />
+        </EntityType>
+        <EntityType Name="Sho">
+          <Key>
+            <PropertyRef Name="ShoeID" />
+          </Key>
+          <Property Name="ShoeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeID" Type="Int32" Nullable="false" />
+          <Property Name="WearerID" Type="Int32" Nullable="false" />
+          <Property Name="Brand" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Carts" Relationship="Self.FK_Cart_Shoes" FromRole="Shoes" ToRole="Cart" />
+          <NavigationProperty Name="ShoeType" Relationship="Self.FK_Shoes_ShoeTypes" FromRole="Shoes" ToRole="ShoeTypes" />
+          <NavigationProperty Name="Wearer" Relationship="Self.FK_Shoes_Wearers" FromRole="Shoes" ToRole="Wearers" />
+        </EntityType>
+        <EntityType Name="ShoeType">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Shoes" Relationship="Self.FK_Shoes_ShoeTypes" FromRole="ShoeTypes" ToRole="Shoes" />
+        </EntityType>
+        <EntityType Name="Wearer">
+          <Key>
+            <PropertyRef Name="WearerID" />
+          </Key>
+          <Property Name="WearerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Shoes" Relationship="Self.FK_Shoes_Wearers" FromRole="Wearers" ToRole="Shoes" />
+        </EntityType>
+        <Association Name="FK_Cart_Shoes">
+          <End Role="Shoes" Type="Self.Sho" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shoes">
+              <PropertyRef Name="ShoeID" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="ShoeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shoes_ShoeTypes">
+          <End Role="ShoeTypes" Type="Self.ShoeType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Shoes" Type="Self.Sho" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShoeTypes">
+              <PropertyRef Name="TypeID" />
+            </Principal>
+            <Dependent Role="Shoes">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shoes_Wearers">
+          <End Role="Wearers" Type="Self.Wearer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Shoes" Type="Self.Sho" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wearers">
+              <PropertyRef Name="WearerID" />
+            </Principal>
+            <Dependent Role="Shoes">
+              <PropertyRef Name="WearerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShoeDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Carts" EntityType="Self.Cart" />
+          <EntitySet Name="Shoes" EntityType="Self.Sho" />
+          <EntitySet Name="ShoeTypes" EntityType="Self.ShoeType" />
+          <EntitySet Name="Wearers" EntityType="Self.Wearer" />
+          <AssociationSet Name="FK_Cart_Shoes" Association="Self.FK_Cart_Shoes">
+            <End Role="Shoes" EntitySet="Shoes" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shoes_ShoeTypes" Association="Self.FK_Shoes_ShoeTypes">
+            <End Role="ShoeTypes" EntitySet="ShoeTypes" />
+            <End Role="Shoes" EntitySet="Shoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shoes_Wearers" Association="Self.FK_Shoes_Wearers">
+            <End Role="Wearers" EntitySet="Wearers" />
+            <End Role="Shoes" EntitySet="Shoes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ShoeDBModelStoreContainer" CdmEntityContainer="ShoeDBEntities">
+          <EntitySetMapping Name="Carts">
+            <EntityTypeMapping TypeName="ShoeDBModel.Cart">
+              <MappingFragment StoreEntitySet="Cart">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="ShoeID" ColumnName="ShoeID" />
+                <ScalarProperty Name="Date_Purchased" ColumnName="Date Purchased" />
+                <ScalarProperty Name="IsInCart" ColumnName="IsInCart" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shoes">
+            <EntityTypeMapping TypeName="ShoeDBModel.Sho">
+              <MappingFragment StoreEntitySet="Shoes">
+                <ScalarProperty Name="ShoeID" ColumnName="ShoeID" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="WearerID" ColumnName="WearerID" />
+                <ScalarProperty Name="Brand" ColumnName="Brand" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShoeTypes">
+            <EntityTypeMapping TypeName="ShoeDBModel.ShoeType">
+              <MappingFragment StoreEntitySet="ShoeTypes">
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wearers">
+            <EntityTypeMapping TypeName="ShoeDBModel.Wearer">
+              <MappingFragment StoreEntitySet="Wearers">
+                <ScalarProperty Name="WearerID" ColumnName="WearerID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
